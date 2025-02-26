@@ -15,7 +15,7 @@ public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
 
-    @PostMapping(path = "/cadastrar-dados")
+    @PostMapping(path = "/cadastrar")
     public ResponseEntity<?> cadastrarDados(@RequestBody UsuarioDTO dados){
 
         try {
@@ -32,7 +32,7 @@ public class UsuarioController {
 
     }
 
-    @GetMapping(path = "/pegar-dados-login")
+    @GetMapping(path = "/login")
     public ResponseEntity<Usuario> pegarDadosLogin(@RequestParam("email") String email){
         Usuario usuario = this.usuarioService.pegarUsuario(email);
         return new ResponseEntity<>(usuario, HttpStatus.OK);

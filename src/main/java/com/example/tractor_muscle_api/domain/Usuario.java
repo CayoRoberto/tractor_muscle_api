@@ -18,7 +18,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String sobreNome;
+    private String sobrenome;
     private String email;
     private String senha;
     private int ativo;
@@ -26,7 +26,7 @@ public class Usuario {
 
     public Usuario(UsuarioDTO dados){
         this.nome = dados.nome();
-        this.sobreNome = dados.sobreNome();
+        this.sobrenome = dados.sobrenome();
         this.email = dados.email();
         this.senha = dados.senha();
         this.ativo = dados.ativo();

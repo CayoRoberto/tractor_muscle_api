@@ -29,7 +29,7 @@ public class TokenService {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return  JWT.create()
                     .withIssuer("API tractor_muscle")
-                    .withSubject(usuario.getEmail())
+                    .withSubject(usuario.getLogin())
                     .withClaim("id", usuario.getId())
                     //.withExpiresAt(dataExpiracao())
                     .sign(algorithm);

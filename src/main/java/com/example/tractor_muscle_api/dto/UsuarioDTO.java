@@ -1,4 +1,4 @@
 package com.example.tractor_muscle_api.dto;
 
-public record UsuarioDTO(String nome, String sobrenome, String email, String senha, int ativo) {
+public record UsuarioDTO(String login, String nome, String sobrenome, String senha, boolean ativo) {
 }

@@ -22,20 +22,22 @@ public class SecurityConfigurations {
     @Autowired
     private SecurityFilter securityFilter;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(req -> {
-                    req.requestMatchers(HttpMethod.POST, "tractor_muscle/login", "tractor_muscle/cadastrar", "tractor_muscle/usuario/cadastrar", "tractor_muscle/usuario/gerar-token-email").permitAll();
-                    req.requestMatchers(HttpMethod.GET,"tractor_muscle/usuario/existe-email", "tractor_muscle/usuario/pegar-dados-login" ).permitAll();
-                    req.requestMatchers(HttpMethod.PUT, "tractor_muscle/usuario/mudar-senha-esquecida").permitAll();
-                    req.anyRequest().authenticated();
-                })
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-
-    }
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        return http
+//                .cors(AbstractHttpConfigurer::disable) //Permite requisições CORS (se necessário)
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .authorizeHttpRequests(req -> {
+//                    req.requestMatchers(HttpMethod.POST, "tractor_muscle/login",  "tractor_muscle/usuario/cadastrar", "tractor_muscle/usuario/gerar-token-email").permitAll();
+//                    req.requestMatchers(HttpMethod.GET,"tractor_muscle/usuario/existe-email", "tractor_muscle/usuario/pegar-dados-login" ).permitAll();
+//                    req.requestMatchers(HttpMethod.PUT, "tractor_muscle/usuario/mudar-senha-esquecida").permitAll();
+//                    req.anyRequest().authenticated();
+//                })
+//                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+//                .build();
+//
+//    }
 
     //Método de injecao da classe manager
     @Bean

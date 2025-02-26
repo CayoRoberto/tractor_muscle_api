@@ -3,7 +3,7 @@ package com.example.tractor_muscle_api.components;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-public class CodificadorDeSenhaBcrypt {
+public class CodeSenhaBcrypt {
 
     public String codificarSenha(String senha){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

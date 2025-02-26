@@ -12,12 +12,29 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     boolean existsByLogin(String login);
 
-    boolean existsByEmail(String email);
 
     @Query("""
             select u from Usuario u
             where
-            u.email = :email
+            u.login = :login
+            """)
+    Usuario findUsuarioByLogin(String login);
+
+
+    @Query("""
+            select u.id from Usuario u
+            where
+            u.login =:login
+            """)
+    Long findIdforLogin(String login);
+
+
+    @Query("""
+            select u from Usuario u
+            where
+            u.login = :email
             """)
     Usuario findUsuarioByEmail(String email);
+
+
 }

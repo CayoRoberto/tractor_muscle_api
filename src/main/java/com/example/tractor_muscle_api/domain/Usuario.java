@@ -31,6 +31,11 @@ public class Usuario implements UserDetails {
     private String senha;
     private boolean ativo;
 
+
+    public Usuario() {
+    }
+
+
     public Usuario(UsuarioDTO dados){
         this.login = dados.login();
         this.nome = dados.nome();

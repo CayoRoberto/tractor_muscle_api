@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfigurations {
@@ -22,22 +24,29 @@ public class SecurityConfigurations {
     @Autowired
     private SecurityFilter securityFilter;
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        return http
-//                .cors(AbstractHttpConfigurer::disable) //Permite requisições CORS (se necessário)
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests(req -> {
-//                    req.requestMatchers(HttpMethod.POST, "tractor_muscle/login",  "tractor_muscle/usuario/cadastrar", "tractor_muscle/usuario/gerar-token-email").permitAll();
-//                    req.requestMatchers(HttpMethod.GET,"tractor_muscle/usuario/existe-email", "tractor_muscle/usuario/pegar-dados-login" ).permitAll();
-//                    req.requestMatchers(HttpMethod.PUT, "tractor_muscle/usuario/mudar-senha-esquecida").permitAll();
-//                    req.anyRequest().authenticated();
-//                })
-//                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-//                .build();
-//
-//    }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .cors(cors -> cors.configurationSource(request -> {
+                    var config = new org.springframework.web.cors.CorsConfiguration();
+                    config.setAllowedOrigins(List.of("http://localhost:4200")); // Permitir requisições do Angular
+                    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                    config.setAllowedHeaders(List.of("*"));
+                    config.setAllowCredentials(true);
+                    return config;
+                })) //Permite requisições CORS (se necessário)
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(req -> {
+                    req.requestMatchers(HttpMethod.POST, "tractor_muscle/login",  "tractor_muscle/usuario/cadastrar", "tractor_muscle/usuario/gerar-token-email").permitAll();
+                    req.requestMatchers(HttpMethod.GET,"tractor_muscle/usuario/existe-email", "tractor_muscle/usuario/pegar-dados-login" ).permitAll();
+                    req.requestMatchers(HttpMethod.PUT, "tractor_muscle/usuario/mudar-senha-esquecida").permitAll();
+                    req.anyRequest().authenticated();
+                })
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
+
+    }
 
     //Método de injecao da classe manager
     @Bean

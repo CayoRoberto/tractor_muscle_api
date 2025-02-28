@@ -4,6 +4,7 @@ import com.example.tractor_muscle_api.domain.Usuario;
 
 
 import com.example.tractor_muscle_api.dto.AuthDTO;
+import com.example.tractor_muscle_api.dto.LoginResponseDTO;
 import com.example.tractor_muscle_api.service.security.DateTokenJWT;
 import com.example.tractor_muscle_api.service.security.TokenService;
 import jakarta.validation.Valid;
@@ -38,10 +39,12 @@ public class AutenticacaoController {
             var authentication = manager.authenticate(authenticationToken);
             System.out.println("Usuário autenticado com sucesso!");
 
+            var usuario = (Usuario) authentication.getPrincipal();
             var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
             System.out.println("Chegou aqui 3");
 
-            return  ResponseEntity.ok(new DateTokenJWT(tokenJWT));
+            var response = new LoginResponseDTO(tokenJWT, usuario);
+            return  ResponseEntity.ok(response);
 
         }catch (Exception e){
             e.printStackTrace();

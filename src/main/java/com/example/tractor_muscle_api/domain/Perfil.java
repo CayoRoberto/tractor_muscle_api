@@ -17,7 +17,7 @@ public class Perfil {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String genero;
-    private String idade;
+    private double idade;
     private double altura;
     private String biotipo;
     private String objetivo;
@@ -27,6 +27,8 @@ public class Perfil {
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
+    public Perfil() {
+    }
 
     public Perfil(PerfilDTO dados){
         this.genero = dados.genero();
@@ -37,5 +39,13 @@ public class Perfil {
         this.disponibilidade = dados.disponibilidade();
         //this.medidasCorporais = new MedidasCorporais(dados.medidasCorporais());
         this.usuario = dados.usuario();
+    }
+
+    public String getObjetivo() {
+        return objetivo;
+    }
+
+    public void setObjetivo(String objetivo) {
+        this.objetivo = objetivo;
     }
 }

@@ -38,8 +38,8 @@ public class SecurityConfigurations {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers(HttpMethod.POST, "tractor_muscle/login",  "tractor_muscle/usuario/cadastrar", "tractor_muscle/usuario/gerar-token-email").permitAll();
-                    req.requestMatchers(HttpMethod.GET,"tractor_muscle/usuario/existe-email", "tractor_muscle/usuario/pegar-dados-login" ).permitAll();
+                    req.requestMatchers(HttpMethod.POST, "tractor_muscle/login",  "tractor_muscle/usuario/cadastrar", "tractor_muscle/usuario/gerar-token-email", "tractor_muscle/perfil/cadastrar").permitAll();
+                    req.requestMatchers(HttpMethod.GET,"tractor_muscle/usuario/existe-email", "tractor_muscle/usuario/pegar-dados-login", "tractor_muscle/perfil/existe/**", "tractor_muscle/perfil/buscar-por-usuario/**",  "tractor_muscle/exercicio/personalizado/**" ).permitAll();
                     req.requestMatchers(HttpMethod.PUT, "tractor_muscle/usuario/mudar-senha-esquecida").permitAll();
                     req.anyRequest().authenticated();
                 })

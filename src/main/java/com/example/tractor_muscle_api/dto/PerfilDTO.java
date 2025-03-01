@@ -5,7 +5,7 @@ import com.example.tractor_muscle_api.domain.Usuario;
 
 public record PerfilDTO(
         String genero,
-        String idade,
+        double idade,
         double altura,
         String biotipo,
         String objetivo,
